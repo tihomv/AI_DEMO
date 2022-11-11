@@ -18,6 +18,8 @@ from django.conf import settings
 # faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
 # maskNet = load_model(os.path.join(settings.BASE_DIR, 'face_detector/mask_detector.model'))
 
+from AI_MODELS.yolov7.detect import detect
+
 
 class VideoCamera(object):
     def __init__(self):
@@ -28,6 +30,7 @@ class VideoCamera(object):
 
     def get_frame(self):
         success, image = self.video.read()
+        image = detect(image)
         # We are using Motion JPEG, but OpenCV defaults to capture raw images,
         # so we must encode it into JPEG in order to correctly display the
         # video stream.
